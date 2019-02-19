@@ -13,7 +13,6 @@ import CoreData
 class PotCommunViewController: UIViewController {
      var tour = 50.0
 
-
     @IBOutlet weak var CompteurGreg: UILabel!
     var displayGreg :Int {
         get {
@@ -99,8 +98,6 @@ class PotCommunViewController: UIViewController {
         }
     }
     
-
-    
     fileprivate func addMouvement(_ coloc: String, cout: Double, date :Date){
         managedObjectContext?.performAndWait {
             _ = Mouvement.MouvementWithmouvInfo(coloc, newCout: cout,newDate:  date, inManagedObjectContext: self.managedObjectContext!)
@@ -145,7 +142,6 @@ class PotCommunViewController: UIViewController {
     
     func UpdateUI() {
         
-        print("Begin UPDATE")
         var countGreg = 0
         var totalGreg: Double = 0
         let nomGreg: String = "Greg"
@@ -163,7 +159,6 @@ class PotCommunViewController: UIViewController {
         let nomArnaud: String = "Arnaud"
         
         managedObjectContext?.performAndWait{
-            print("TOUR : \(self.tour)")
             
             let sommeExpression = NSExpression(format: "sum:(valeur)")
             let sommeED = NSExpressionDescription()
@@ -250,20 +245,7 @@ class PotCommunViewController: UIViewController {
                 print("Erreur");
             }
             
-            
-            
-            /*
-            request = NSFetchRequest(entityName: "Mouvement")
-            request.predicate = NSPredicate(format: "coloc = %@ AND valeur = %@", nomAdrien, NSNumber(double: self.tour))
-            countAdrien = self.managedObjectContext!.countForFetchRequest(request , error: nil)
-            
-            request.predicate = NSPredicate(format: "coloc = %@ AND valeur = %@", nomDuc, NSNumber(double: self.tour))
-            countDuc = self.managedObjectContext!.countForFetchRequest(request , error: nil)
-            
-            request.predicate = NSPredicate(format: "coloc = %@ AND valeur = %@", nomArnaud, NSNumber(double: self.tour))
-            countArnaud = self.managedObjectContext!.countForFetchRequest(request , error: nil)*/
         }
-        print("END UPDATE - GRIS")
         displayGreg = countGreg
         tempoGreg = totalGreg
         tempoLabeldeGreg.textColor = UIColor(white: 0.5, alpha: 1)
@@ -277,17 +259,14 @@ class PotCommunViewController: UIViewController {
         tempoArnaud = totalArnaud
         tempoLabeldeArnaud.textColor = UIColor(white: 0.5, alpha: 1)
         
-    
     }
     
     
     //INITIALISATION
     override func viewDidLoad() {
         UpdateUI()
-        
-
     }
-// SWIPE -------------------------------------------------------------------------------
+    // SWIPE -------------------------------------------------------------------------------
     func prixFromTranslate(_ point: CGPoint) -> Double {
         var retour: Double
         retour = floor((Double(point.x)*Double(point.x) + Double(point.y)*Double(point.y))*2/200)/2
@@ -295,9 +274,6 @@ class PotCommunViewController: UIViewController {
     }
     
     ///LABEL
-    
-    
-    
     @IBOutlet weak var tempoLabeldeGreg: UILabel!
     var tempoGreg: Double {
         get {
@@ -335,9 +311,6 @@ class PotCommunViewController: UIViewController {
         }
     }
 
-
-    
-    
     //SUBMIT
     
     @IBAction func submitPanGreg(_ sender: UIButton) {
@@ -362,7 +335,7 @@ class PotCommunViewController: UIViewController {
     /// MARK : Swipe Function
     //GREG
     
-    internal func panPlusGreg(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panPlusGreg(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
                 tempoGreg = 0.0
@@ -377,7 +350,7 @@ class PotCommunViewController: UIViewController {
         break;
         }
     }
-    internal func panMoinsGreg(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panMoinsGreg(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoGreg = 0.0
@@ -393,7 +366,7 @@ class PotCommunViewController: UIViewController {
         }
     }
     
-    internal func panPlusAdrien(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panPlusAdrien(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoAdrien = 0.0
@@ -408,7 +381,7 @@ class PotCommunViewController: UIViewController {
             break;
         }
     }
-    internal func panMoinsAdrien(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panMoinsAdrien(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoAdrien = 0.0
@@ -424,7 +397,7 @@ class PotCommunViewController: UIViewController {
         }
     }
     
-    internal func panPlusDuc(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panPlusDuc(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoDuc = 0.0
@@ -439,7 +412,7 @@ class PotCommunViewController: UIViewController {
             break;
         }
     }
-    internal func panMoinsDuc(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panMoinsDuc(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoDuc = 0.0
@@ -455,7 +428,7 @@ class PotCommunViewController: UIViewController {
         }
     }
     
-    internal func panPlusArnaud(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panPlusArnaud(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoArnaud = 0.0
@@ -470,7 +443,7 @@ class PotCommunViewController: UIViewController {
             break;
         }
     }
-    internal func panMoinsArnaud(_ gesture: UIPanGestureRecognizer){
+    @objc internal func panMoinsArnaud(_ gesture: UIPanGestureRecognizer){
         switch gesture.state {
         case .began :
             tempoArnaud = 0.0
@@ -486,10 +459,7 @@ class PotCommunViewController: UIViewController {
         }
     }
     
-    
-    
-    //SWIIIIIIIIIIIIIIIIIIIIPE BUTTTON
-    
+    //SWIPE BUTTTON
     @IBOutlet weak var plusSwipe: UIButton! {
         didSet {
             let recognizer = UIPanGestureRecognizer(
@@ -557,23 +527,4 @@ class PotCommunViewController: UIViewController {
             moinsSwipeArnaud.addGestureRecognizer(recognizer)
         }
     }
-
-    
-
-
-
-
-    
-    
-    /*
-     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
