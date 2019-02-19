@@ -77,8 +77,8 @@ class MouvementTableViewController: CoreDataTableViewController {
             mouvement.managedObjectContext?.performAndWait{
                 let dateform = DateFormatter()
                 dateform.dateFormat = "dd MMMM YYYY"
-                dateform.locale = Locale(localeIdentifier: "fr_FR")
-                detailText = String(mouvement.valeur!) + " francs - " + dateform.string(from: mouvement.date!)
+                dateform.locale = Locale(identifier: "fr_FR")
+                detailText = mouvement.valeur!.stringValue + " francs - " + dateform.string(from:mouvement.date!)
                 cellText = String(mouvement.coloc!)
                 
             }
